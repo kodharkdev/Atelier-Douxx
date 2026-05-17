@@ -1,3 +1,50 @@
+
+function runLoader(done) {
+  document.body.style.overflow = 'hidden';
+
+  const typedText = document.getElementById('typedText');
+  const cursor = document.getElementById('cursor');
+  const lineFill = document.getElementById('lineFill');
+  const loader = document.getElementById('loader');
+
+  const part1 = 'Atelier';
+  const part2 = 'Douxr';
+  const fullText = part1 + part2;
+
+  let i = 0;
+
+  function typeNext() {
+    i++;
+    const typed1 = fullText.slice(0, Math.min(i, part1.length));
+    const typed2 = fullText.slice(part1.length, i);
+    typedText.innerHTML = typed1 + (typed2 ? `<span class="text-pink-500">${typed2}</span>` : '');
+
+    if (i < fullText.length) {
+      setTimeout(typeNext, 80 + Math.random() * 80);
+    } else {
+      setTimeout(() => {
+        cursor.classList.add('hidden');
+        lineFill.style.transition = 'width 1.3s cubic-bezier(.22,1,.36,1)';
+        lineFill.style.width = '100%';
+
+        setTimeout(() => {
+          loader.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+          loader.style.opacity = '0';
+          loader.style.transform = 'scale(5)';
+          setTimeout(() => {
+            loader.style.display = 'none';
+            document.body.style.overflow = '';
+            done();
+          }, 600);
+        }, 1600);
+
+      }, 300);
+    }
+  }
+
+  setTimeout(typeNext, 400);
+}
+
 function initHeader() {
     const header = document.querySelector('header#header');
 
@@ -254,7 +301,7 @@ function initFaq() {
 
   // To load all functions
 document.addEventListener('DOMContentLoaded', () => {
-
+    runLoader()
     initHeader()
     initReveal()
     initCounters()

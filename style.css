@@ -15,6 +15,66 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* preloader */
+
+.preloader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #101010;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.preloader-text {
+  color: #f8f8f8;
+}
+
+.preloader-text .pink {
+  color: #ff6b98;
+}
+
+.cursor {
+  color: #ff6b98;
+  animation: blink 0.8s step-end infinite;
+}
+
+.cursor.hidden {
+  display: none;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.preloader-line {
+  width: 350px;
+  height: 1px;
+  background: #333;
+  position: relative;
+}
+
+.preloader-line-fill {
+  position: absolute;
+  height: 1px;
+  width: 0%;
+  background: #ff6b98;
+  transition: width 1.5s cubic-bezier(.22,1,.36,1);
+}
+
+.preloader.done {
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+
+
 .hamburger {
   display: none;
   flex-direction: column;
@@ -93,7 +153,7 @@ html {
   width:100%;
   background:
     linear-gradient(rgba(0,0,0,0.6),rgba(255,255,255,0.2)),
-    url("https://i.postimg.cc/ZqwSYH2h/Atelier-2.jpg")
+    url("https://i.postimg.cc/rpkFKydG/douxx-3.jpg")
     center/cover no-repeat;
   z-index: -1;
   animation: zoomIn 15s ease-in-out infinite alternate;
